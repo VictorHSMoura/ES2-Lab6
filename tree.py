@@ -6,6 +6,21 @@ class Node:
         self.r = None
         self.v = val
 
+    def insertLeft(self, node):
+        self.l = node
+
+    def getLeft(self):
+        return self.l
+
+    def insertRight(self, node):
+        self.r = node
+
+    def getRight(self):
+        return self.r
+
+    def getValue(self):
+        return self.v
+
 class Tree:
     def __init__(self):
         self.root = None
@@ -20,16 +35,16 @@ class Tree:
             self._add(val, self.root)
 
     def _add(self, val, node):
-        if val < node.v:
-            if node.l is not None:
-                self._add(val, node.l)
+        if val < node.getValue():
+            if node.getLeft() is not None:
+                self._add(val, node.getLeft())
             else:
-                node.l = Node(val)
+                node.insertLeft(Node(val))
         else:
-            if node.r is not None:
-                self._add(val, node.r)
+            if node.getRight() is not None:
+                self._add(val, node.getRight())
             else:
-                node.r = Node(val)
+                node.insertRight(Node(val))
 
     def find(self, val):
         if self.root is not None:
@@ -38,12 +53,12 @@ class Tree:
             return None
 
     def _find(self, val, node):
-        if val == node.v:
+        if val == node.getValue():
             return node
-        elif (val < node.v and node.l is not None):
-            return self._find(val, node.l)
-        elif (val > node.v and node.r is not None):
-            return self._find(val, node.r)
+        elif (val < node.getValue() and node.getLeft() is not None):
+            return self._find(val, node.getLeft())
+        elif (val > node.getValue() and node.getRight() is not None):
+            return self._find(val, node.getRight())
 
     def deleteTree(self):
         self.root = None
